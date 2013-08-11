@@ -1,15 +1,21 @@
 var http = require('http');
+var math=  require('mathjs');
+
+setInterval(postZwave,1000);
+
+function postZwave(){
 
 var options= {
   host: '192.168.1.35',
   port: 8083,
-  path: '/ZwaveApi/Data/'+ +new Date(),
+  path: '/ZwaveApi/Data/'+ math.round(new Date()/1000),
   method: 'POST'
 };
 
-setInterval(postZwave,500);
+console.log('Options ');
+console.log(options);
 
-function postZwave(){
+
 http.request(options, function(res){
    console.log('Status:'+ res.statusCode);
    console.log('Headers'+ JSON.stringify(res.headers));
